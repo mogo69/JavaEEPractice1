@@ -3,18 +3,26 @@ package com.mogo.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mogo.service.Reader;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
+import com.mogo.service.Reader;
+@Component
 public class Person implements Reader {
 
-	private int willPower;
-	private ArrayList<Book> books;
+	private int willPower = 3;
+	@Autowired
+	@Qualifier("book1")
+	private Book favouriteBook;
 
+	public Person() {
+	}
+	
 	public Person(int willPower) {
 		this.willPower = willPower;
 	}
 
-	@Override
 	public void read(Book book) {
 		if (willPower < 1) {
 			System.out.println("I cannot read any moooooore!");
@@ -22,7 +30,6 @@ public class Person implements Reader {
 			willPower--;
 			System.out.println("I have just read " + book.getTitle());
 		}
-
 	}
 
 	public int getWillPower() {
@@ -33,25 +40,18 @@ public class Person implements Reader {
 		this.willPower = willPower;
 	}
 
-	public ArrayList getBooks() {
-		return books;
+
+	public void setFavoriteBook(Book favouriteBook) {
+		this.favouriteBook = favouriteBook;
+	}
+	
+	public Book getFavoriteBook() {
+		return favouriteBook;
 	}
 
-	public void setBooks(ArrayList books) {
-		this.books = books;
-	}
 
-	@Override
-	public void read(List<Book> books) {
-		for (Book b : books) {
-			read(b);
-		}
-
-	}
-
-	@Override
-	public List<Book> getFavoriteBooks() {
-		return books;
+	public void readFavouriteBook() {
+		this.read(getFavoriteBook());	
 	}
 
 }
