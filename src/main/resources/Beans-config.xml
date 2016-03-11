@@ -1,20 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
 
 
-	<context:annotation-config/>
+	<context:annotation-config />
 	
-   	<!-- bean definitions go here -->
+	<!-- bean definitions go here -->
 	<bean id="book1" class="com.mogo.Entity.Book">
 		<property name="title" value="Effective C++" />
 	</bean>
 	
+	<!-- bean definitions go here -->
+	<bean id="book2" class="com.mogo.Entity.Book">
+		<property name="title" value="Pragmatic Programmer" />
+	</bean>
+	
+	<!-- bean definitions go here -->
+	<bean id="book3" class="com.mogo.Entity.Book">
+		<property name="title" value="Thinking in Java" />
+	</bean>
+
 	<bean id="John" class="com.mogo.Entity.Person">
 		<constructor-arg value="2" />
 	</bean>
+ <aop:aspectj-autoproxy />	
+ <bean id="spy1" class="com.mogo.Entity.Spy">
+    <!-- configure properties of aspect here as normal -->
+ </bean>
+	<!--  <aop:config>
+		 <aop:aspect ref="Tom">
+
+			<aop:pointcut id="readingFavoriteBook"
+				expression="execution(* com.mogo.Entity.Person.readFavouriteBook(com.mogo.Entity.Book)) and args(book)" />
+
+			<aop:after method="spy" pointcut-ref="readingFavoriteBook"
+				 arg-names="book"/>
+
+		</aop:aspect>
+		<aop:aspect id="mySpyAspect" ref="Tom">
+
+			<aop:after
+				pointcut="execution(* com.mogo.Entity.Person.readFavouriteBook()) and args(book,..)"
+				method="spy" />
+		</aop:aspect>
+	</aop:config> -->
+ 
 </beans>
+
+	
